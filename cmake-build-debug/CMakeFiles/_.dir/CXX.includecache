@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/nester/Desktop/методы оптимизации/OneDimensionSearch.cpp
+iostream
+-
+cassert
+-
+cmath
+-
+tuple
+-
+chrono
+-
+
+/Users/nester/Desktop/методы оптимизации/main.cpp
+iostream
+-
+OneDimensionSearch.cpp
+/Users/nester/Desktop/методы оптимизации/OneDimensionSearch.cpp
+
