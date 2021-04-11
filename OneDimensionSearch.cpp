@@ -7,11 +7,17 @@
 #include <cmath>
 #include <tuple>
 #include <chrono>
+#include "Function.cpp"
+
+enum Task {
+  TASK_ONE,
+  TASK_TWO,
+  TASK_THREE
+};
 
 class OneDimensionSearch {
 
 public:
-
   double eps = 1e-7;
   double delta = eps / 2;
 
@@ -85,7 +91,7 @@ public:
   }
 
 
-  [[nodiscard]] std::tuple<double, double> get_min_fibbonaci_method(double a, double b) const{
+  [[nodiscard]] std::tuple<double, double> get_min_fibbonaci_method(double a, double b) const {
     assert(a <= b);
 
     int realIterationsCounter = 0;
@@ -162,13 +168,17 @@ public:
     std::cout << "x = " << std::get<0>(fibbonaciResults) << std::endl;
     std::cout << "y = " << std::get<1>(fibbonaciResults) << std::endl;
     std::cout << duration3 << std::endl;
+
   }
 
 private:
-  //f(x) = x^2 + 2x + 5 + sin(x)*cos(x)
+
+  Function functionLib;
+
   long double f(double x) const {
-    return std::pow(x, 2) + 2 * x + 5 + std::sin(x) * std::cos(x);
+      return functionLib.f(x);
   }
+
 
   //Fibonacci
   constexpr unsigned long long F(int n) const {
