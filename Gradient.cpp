@@ -51,14 +51,14 @@ private:
   Function fun_lib;
 
   double f(double x, Point grad, Point x_k) const {
-    return fun_lib.f5(x_k.x - x * grad.x,
+    return fun_lib.f4(x_k.x - x * grad.x,
                       x_k.y - x * grad.y);
   }
 
 
   Point gradient(Point cur){
-    double x_grad = fun_lib.derivate_f5_x(cur.x,cur.y);
-    double y_grad = fun_lib.derivate_f5_y(cur.x,cur.y);
+    double x_grad = fun_lib.derivate_f4_x(cur.x,cur.y);
+    double y_grad = fun_lib.derivate_f4_y(cur.x,cur.y);
     return Point(x_grad,y_grad);
   }
 
@@ -68,7 +68,7 @@ private:
     Point last_point = Point(INT32_MAX,INT32_MAX);
     Point current_point = x_0;
     double alpha;
-    while(std::abs(fun_lib.f5(current_point.x,current_point.y) - fun_lib.f5(last_point.x,last_point.y)) >= eps){
+    while(std::abs(fun_lib.f4(current_point.x,current_point.y) - fun_lib.f4(last_point.x,last_point.y)) >= eps){
       last_point = current_point;
       Point grad = gradient(current_point);
       iter++;
@@ -91,8 +91,8 @@ private:
       current_point = Point(current_point.x - alpha * grad.x,current_point.y - alpha * grad.y);
     }
 
-    std::cout << iter  << "iter" << std::endl;
-    return std::make_tuple(current_point.x,current_point.y,fun_lib.f5(current_point.x,current_point.y));
+    std::cout << iter  << " iter" << std::endl;
+    return std::make_tuple(current_point.x,current_point.y,fun_lib.f4(current_point.x,current_point.y));
 
     // x_k+1 = x_k - a_k* f'(x_k)
     // a_k - shag grad met
