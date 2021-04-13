@@ -51,12 +51,12 @@ public:
     return 4 * y +  std::exp(x + y);
   }
 
-  //5 case f(x) = -4x - 2y + x^2 + y^2 + 5
+  //5 case f(x) = -4x - 2y + 1000x^2 + y^2 + 5
   long double f5(double x, double y) const {
-    return std::pow(x,2) + std::pow(y,2) + 5 - 2 * y - 4 * x;
+    return 1000*std::pow(x,2) + std::pow(y,2) + 5 - 2 * y - 4 * x;
   }
   long double derivate_f5_x(double x, double y) const {
-    return 2 * x - 4 ;
+    return 2000 * x - 4 ;
   }
   long double derivate_f5_y(double x, double y) const {
     return 2 * y - 2;
@@ -72,5 +72,16 @@ public:
   long double derivate_f6_y(double x, double y) const {
     return 200 * (y - std::pow(x,2));
   }
+  //f(x) = sin(1/2x^2 - 1/4y^2 +3)*cos(2x +1+e^y)
+  long double f7(double x, double y) const {
+    return std::sin(1/2*std::pow(x,2) - 1/4*std::pow(y,2) + 3)* std::cos(2*x + 1 + std::exp(y));
+  }
+  long double derivate_f7_x(double x, double y) const {
+    return (f7(x+0.00001,y) - f7(x,y)) / 0.00001;
+  }
+  long double derivate_f7_y(double x, double y) const {
+    return (f7(x,y+0.00001) - f7(x,y)) / 0.00001;
+  }
+
 
 };

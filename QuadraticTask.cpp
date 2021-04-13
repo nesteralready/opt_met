@@ -22,11 +22,11 @@ public:
     fillForm(quadraticForm);
 
     std::cout << "k = " << k << "   n = " << n << std::endl;
-    getForm();
+    //getForm();
     std::vector res = grad_method(std::move(x_0),search);
-    for(auto r : res){
-      std::cout << r << " ";
-    }
+
+    std::cout << res.back() << " ";
+
   }
 
 private:

@@ -1,6 +1,5 @@
 //
 // Created by Ilya Nesterenko on 07.04.2021.
-//
 
 
 struct Point{
@@ -51,24 +50,25 @@ private:
   Function fun_lib;
 
   double f(double x, Point grad, Point x_k) const {
-    return fun_lib.f4(x_k.x - x * grad.x,
+    return fun_lib.f7(x_k.x - x * grad.x,
                       x_k.y - x * grad.y);
   }
 
 
   Point gradient(Point cur){
-    double x_grad = fun_lib.derivate_f4_x(cur.x,cur.y);
-    double y_grad = fun_lib.derivate_f4_y(cur.x,cur.y);
+    double x_grad = fun_lib.derivate_f7_x(cur.x,cur.y);
+    double y_grad = fun_lib.derivate_f7_y(cur.x,cur.y);
     return Point(x_grad,y_grad);
   }
 
 
   [[nodiscard]] std::tuple<double, double, double> grad_method(Point x_0, Lin_search search) {
     int iter = 0;
-    Point last_point = Point(INT32_MAX,INT32_MAX);
+    Point last_point = Point(6,6);
     Point current_point = x_0;
+    //std::cout << current_point.x << " " << current_point.y <<  std::endl;
     double alpha;
-    while(std::abs(fun_lib.f4(current_point.x,current_point.y) - fun_lib.f4(last_point.x,last_point.y)) >= eps){
+    while(std::abs(fun_lib.f7(current_point.x,current_point.y) - fun_lib.f7(last_point.x,last_point.y)) >= eps){
       last_point = current_point;
       Point grad = gradient(current_point);
       iter++;
@@ -84,15 +84,18 @@ private:
         alpha = std::get<0>(get_min_fibbonaci_method(0,0.5,grad,current_point));
         break;
       case CONST_ALPHA:
-        alpha = 0.0001;
+        alpha = 0.01;
         break;
       }
 
       current_point = Point(current_point.x - alpha * grad.x,current_point.y - alpha * grad.y);
+
+     // std::cout << current_point.x << " " << current_point.y << std::endl;
+
     }
 
     std::cout << iter  << " iter" << std::endl;
-    return std::make_tuple(current_point.x,current_point.y,fun_lib.f4(current_point.x,current_point.y));
+    return std::make_tuple(current_point.x,current_point.y,fun_lib.f7(current_point.x,current_point.y));
 
     // x_k+1 = x_k - a_k* f'(x_k)
     // a_k - shag grad met
