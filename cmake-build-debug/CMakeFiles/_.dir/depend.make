@@ -6,6 +6,7 @@ CMakeFiles/_.dir/OneDimensionSearch.cpp.o: ../OneDimensionSearch.cpp
 
 CMakeFiles/_.dir/main.cpp.o: ../Function.cpp
 CMakeFiles/_.dir/main.cpp.o: ../Gradient.cpp
+CMakeFiles/_.dir/main.cpp.o: ../NewtonMethod.cpp
 CMakeFiles/_.dir/main.cpp.o: ../OneDimensionSearch.cpp
 CMakeFiles/_.dir/main.cpp.o: ../QuadraticTask.cpp
 CMakeFiles/_.dir/main.cpp.o: ../main.cpp

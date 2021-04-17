@@ -64,7 +64,7 @@ private:
 
   [[nodiscard]] std::tuple<double, double, double> grad_method(Point x_0, Lin_search search) {
     int iter = 0;
-    Point last_point = Point(6,6);
+    Point last_point = Point(INT32_MAX,INT32_MAX);
     Point current_point = x_0;
     //std::cout << current_point.x << " " << current_point.y <<  std::endl;
     double alpha;

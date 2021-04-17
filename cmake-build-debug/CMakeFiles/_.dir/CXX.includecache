@@ -9,8 +9,16 @@
 /Users/nester/Desktop/методы оптимизации/Function.cpp
 cmath
 -
+vector
+-
 
 /Users/nester/Desktop/методы оптимизации/Gradient.cpp
+
+/Users/nester/Desktop/методы оптимизации/NewtonMethod.cpp
+vector
+-
+iostream
+-
 
 /Users/nester/Desktop/методы оптимизации/OneDimensionSearch.cpp
 iostream
@@ -25,6 +33,8 @@ chrono
 -
 Function.cpp
 /Users/nester/Desktop/методы оптимизации/Function.cpp
+string
+-
 
 /Users/nester/Desktop/методы оптимизации/QuadraticTask.cpp
 cmath
@@ -49,4 +59,6 @@ Gradient.cpp
 /Users/nester/Desktop/методы оптимизации/Gradient.cpp
 QuadraticTask.cpp
 /Users/nester/Desktop/методы оптимизации/QuadraticTask.cpp
+NewtonMethod.cpp
+/Users/nester/Desktop/методы оптимизации/NewtonMethod.cpp
 

@@ -3,27 +3,28 @@
 #include "OneDimensionSearch.cpp"
 #include "Gradient.cpp"
 #include "QuadraticTask.cpp"
-
+#include "lab2/NewtonMethod.cpp"
 int main() {
 //
 //  //1 point tests;
   OneDimensionSearch lab;
-  lab.eps = 1e-2;
-  lab.run(-5,5);
+//  lab.eps = 1e-1;
+//  lab.run(-5,5);
+    NewtonMethod lab2;
+    lab2.newton_method({2,2});
 
 
-
-  //2 point tests;
-  Gradient grad_test;
-  grad_test.eps_lin_search = 1e-5;
-  grad_test.eps = 1e-10;
-  Point x_0 = Point( -0.33,0.33);
-
-
-  grad_test.run(x_0,DIHOTOMIA);
-  grad_test.run(x_0,GOLDEN_SEARCH);
-  grad_test.run(x_0,FIBBONACHI_SEARCH);
-  grad_test.run(x_0,CONST_ALPHA);
+//  //2 point tests;
+//  Gradient grad_test;
+//  grad_test.eps_lin_search = 1e-5;
+//  grad_test.eps = 1e-10;
+//  Point x_0 = Point( -0.33,0.33);
+//
+//
+//  grad_test.run(x_0,DIHOTOMIA);
+//  grad_test.run(x_0,GOLDEN_SEARCH);
+//  grad_test.run(x_0,FIBBONACHI_SEARCH);
+//  grad_test.run(x_0,CONST_ALPHA);
 
 //  //4 point
 //  int n = 100;

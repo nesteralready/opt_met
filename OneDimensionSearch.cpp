@@ -8,6 +8,7 @@
 #include <tuple>
 #include <chrono>
 #include "Function.cpp"
+#include <string>
 
 enum Task {
   TASK_ONE,
@@ -19,14 +20,14 @@ class OneDimensionSearch {
 
 public:
   double eps = 1e-7;
-  double delta = eps / 2;
-
+  double delta = double( eps / 2.0);
   [[nodiscard]] std::tuple<double, double> get_min_dihotomia_method(double a, double b) const {
     assert(a <= b);
+    double lenghtOtrezok;
     int functionSolvingCounter = 0;
     int realIterationsCounter = 0;
     double theorIterationCounter = (std::log((b - a) / eps)) / log(2);
-
+    lenghtOtrezok = b - a;
     while ((b - a) > eps) {
       realIterationsCounter = realIterationsCounter + 1;
 
@@ -37,9 +38,12 @@ public:
 
       if (f(x_1) < f(x_2)) {
         b = x_1;
+        std::cout << "otnoshenie otr = " <<  (b - a) / lenghtOtrezok  << std::endl;
       } else {
         a = x_2;
+        std::cout << "otnoshenie otr = " << (b - a) / lenghtOtrezok << std::endl;
       }
+      lenghtOtrezok = (b-a);
       functionSolvingCounter += 2;
     }
 
@@ -58,7 +62,7 @@ public:
     int functionSolvingCounter = 2;
     int realIterationsCounter = 0;
     double theorIterationCounter = std::abs(std::log((b - a) / eps) / std::log((std::sqrt(5) - 1) / 2));
-
+    double lenghtOtrezok = b - a;
     double x_1 = a + (b - a) * (3 - std::sqrt(double(5))) / 2;
     double x_2 = a + (b - a) * (sqrt(double(5)) - 1) / 2;
 
@@ -66,6 +70,7 @@ public:
     double f_x2 = f(x_2);
 
     while ((b - a) > eps) {
+
       realIterationsCounter = realIterationsCounter + 1;
        std::cout << "i = " << realIterationsCounter << "   a = " << a  << "   b = " << b << std::endl;
       if (f_x1 < f_x2) {
@@ -73,14 +78,18 @@ public:
         x_2 = x_1;
         f_x2 = f_x1;
         x_1 = a + (b - a) * (3 - sqrt(double(5))) / 2;
+
         f_x1 = f(x_1);
+        std::cout << "otnoshenie otr = " << (b - a) / lenghtOtrezok   << std::endl;
       } else {
         a = x_1;
         x_1 = x_2;
         f_x1 = f_x2;
         x_2 = a + (b - a) * (sqrt(double(5)) - 1) / 2;
         f_x2 = f(x_2);
+        std::cout << "otnoshenie otr = " << (b - a) / lenghtOtrezok << std::endl;
       }
+      lenghtOtrezok = (a-b);
       functionSolvingCounter += 1;
     }
     //std::cout <<  "theor number iterations = " << theorIterationCounter << std::endl;
@@ -105,9 +114,11 @@ public:
       fn2 = fn;
       N++;
     }
+    //0.61
+    //0.38
     double x1 = a + (double) F(N - 2) / F(N) * (b - a);
     double x2 = a + (double) F(N - 1) / F(N) * (b - a);
-
+     double lenghtOtrezok = b - a;
     long double xf1 = f(x1);
     long double xf2 = f(x2);
     while (realIterationsCounter != N - 2) {
@@ -120,6 +131,7 @@ public:
         xf1 = xf2;
         x2 = a + (double) F(N - realIterationsCounter - 1) / F(N - realIterationsCounter) * (b - a);
         xf2 = f(x2);
+        std::cout << "otnoshenie otr = " << (b - a) / lenghtOtrezok << std::endl;
 
       } else {
         b = x2;
@@ -127,6 +139,7 @@ public:
         xf2 = xf1;
         x1 = a + (double) F(N - realIterationsCounter - 2) / F(N - realIterationsCounter) * (b - a);
         xf1 = f(x1);
+        std::cout << "otnoshenie otr = " << (b - a) / lenghtOtrezok << std::endl;
       }
       functionSolvingCounter += 1;
     }
