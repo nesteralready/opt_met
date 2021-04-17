@@ -4,15 +4,31 @@
 #include "Gradient.cpp"
 #include "QuadraticTask.cpp"
 #include "lab2/NewtonMethod.cpp"
+#include "lab2/MatrixAPI.cpp"
+#include "lab2/SoprGrad.cpp"
 int main() {
 //
 //  //1 point tests;
   OneDimensionSearch lab;
 //  lab.eps = 1e-1;
 //  lab.run(-5,5);
-    NewtonMethod lab2;
-    lab2.newton_method({2,2});
+  NewtonMethod lab2;
+  auto a = lab2.newton_method({100,100});
 
+
+  //below is about conj grad method
+//  int n = 2;
+//  auto **Q = new double *[n];
+//
+//  Q[0] = new double[n]{3, 4};
+//  Q[1] = new double[n]{4, -3};
+//
+//  auto *b = new double[n]{1, 5};
+//
+//  double *k = SoprGrad(Q, b, n);
+//  for (int i = 0; i < n; i++) {
+//    cout << k[i] << "  ";
+//  }
 
 //  //2 point tests;
 //  Gradient grad_test;

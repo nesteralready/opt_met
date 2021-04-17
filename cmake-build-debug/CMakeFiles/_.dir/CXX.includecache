@@ -14,12 +14,6 @@ vector
 
 /Users/nester/Desktop/методы оптимизации/Gradient.cpp
 
-/Users/nester/Desktop/методы оптимизации/NewtonMethod.cpp
-vector
--
-iostream
--
-
 /Users/nester/Desktop/методы оптимизации/OneDimensionSearch.cpp
 iostream
 -
@@ -50,6 +44,28 @@ cassert
 algorithm
 -
 
+/Users/nester/Desktop/методы оптимизации/lab2/MatrixAPI.cpp
+iostream
+/Users/nester/Desktop/методы оптимизации/lab2/iostream
+vector
+-
+
+/Users/nester/Desktop/методы оптимизации/lab2/NewtonMethod.cpp
+vector
+-
+iostream
+-
+optional
+-
+
+/Users/nester/Desktop/методы оптимизации/lab2/SoprGrad.cpp
+iostream
+-
+vector
+-
+math.h
+-
+
 /Users/nester/Desktop/методы оптимизации/main.cpp
 iostream
 -
@@ -59,6 +75,10 @@ Gradient.cpp
 /Users/nester/Desktop/методы оптимизации/Gradient.cpp
 QuadraticTask.cpp
 /Users/nester/Desktop/методы оптимизации/QuadraticTask.cpp
-NewtonMethod.cpp
-/Users/nester/Desktop/методы оптимизации/NewtonMethod.cpp
+lab2/NewtonMethod.cpp
+/Users/nester/Desktop/методы оптимизации/lab2/NewtonMethod.cpp
+lab2/MatrixAPI.cpp
+/Users/nester/Desktop/методы оптимизации/lab2/MatrixAPI.cpp
+lab2/SoprGrad.cpp
+/Users/nester/Desktop/методы оптимизации/lab2/SoprGrad.cpp
 

@@ -5,34 +5,51 @@
 
 #include <vector>
 #include <iostream>
+#include <optional>
 class NewtonMethod {
 
 public:
-  double eps = 1e-10;
+  double eps = 1e-8;
   int dim = 2;
 
 
   [[nodiscard]] std::vector<double> newton_method(std::vector<double> start_point) {
+    std::cout <<"work"<< std::endl;
     std::vector<double> prev_x;
     std::vector<double> cur_x = start_point;
+    std::vector<double> grad;
     double alpha;
     do {
-      prev_x = cur_x;
-      std::vector<double> grad = gradient(cur_x);
-      std::vector<std::vector<double>> hess = hessian(cur_x);
-      inversion(hess,dim);
-      std::vector<double> direction = MatrixByVector(hess,grad,2);
 
-      alpha = (golden_sechenie(0,1,direction,cur_x))[0];
-       for(int i = 0; i < dim; i++){
-      cur_x[i] = cur_x[i] + alpha * direction[i];
+      prev_x = cur_x;
+      grad = gradient(cur_x);
+      std::vector<std::vector<double>> hess = hessian(cur_x);
+      auto hes_inv = inversion(hess,dim);
+      std::vector<double> direction;
+      if(hes_inv.has_value()){
+        direction = MatrixByVector(hes_inv.value(),grad,2);
+      } else {
+        std::vector<std::vector<double>> self_numbers_hess = {{-hess[0][0] + 1,0},{0, -hess[1][1] + 1}};
+        for(int i =0; i < dim; i++) {
+          for (int j = 0; j < dim; j++) {
+            hess[i][j] += self_numbers_hess[i][j];
+          }
+        }
+        direction = MatrixByVector(hess,grad,2);
       }
-    } while (NormaV({cur_x[0] - prev_x[0], cur_x[1] - prev_x[1]},2 ) >= eps);
+      alpha = (golden_sechenie(0,1,direction,cur_x))[0];
+
+      for(int i = 0; i < dim; i++){
+        //+ - in case max
+        // - - in case min
+      cur_x[i] = cur_x[i] - alpha * direction[i];
+      }
+    } while (NormaV({cur_x[0] - prev_x[0], cur_x[1]-prev_x[1]},2 ) >= eps);
 
     for(int i =0; i < dim; i++){
       std::cout << cur_x[i] << " " << std::endl;
     }
-    std::cout << "f(x,y) = " << f(cur_x[0],cur_x[1]) << std::endl;
+    std::cout << "f(x,y) = " << f(cur_x[0],cur_x[1])  << std::endl;
   }
 
   void run(std::vector<double> x){
@@ -45,19 +62,19 @@ private:
   Function functionLib;
 
   long double f(double x, double y) const {
-    return functionLib.f4_1(x, y);
+    return functionLib.f2_1(x, y);
   }
 
   [[nodiscard]] std::vector<double> gradient(std::vector<double> x_k){
     std::vector<double> res;
-    res.push_back(functionLib.derivate_f4_1_x(x_k[0],x_k[1]));
-    res.push_back(functionLib.derivate_f4_1_y(x_k[0],x_k[1]));
+    res.push_back(functionLib.derivate_f2_1_x(x_k[0],x_k[1]));
+    res.push_back(functionLib.derivate_f2_1_y(x_k[0],x_k[1]));
     return res;
   }
 
   [[nodiscard]] std::vector<std::vector<double>> hessian(std::vector<double> x_k){
     std::vector<std::vector<double>> res;
-    res = functionLib.hessian_f4_1(x_k[0], x_k[1]);
+    res = functionLib.hessian_f2_1(x_k[0], x_k[1]);
     return res;
   }
 
@@ -65,21 +82,19 @@ private:
     std::vector<double> tmp(n);
     double sum = 0;
     for (int i = 0; i < n; ++i) {
-      for (int j = 0; j < n; ++j) {
+      for (int j = 0; j < n; ++j)
         sum += V[j] * H[i][j];
-      }
       tmp[i] = sum;
       sum = 0;
     }
     return tmp;
   }
 
-  void inversion(std::vector<std::vector<double>> &A, int N)
+ std::optional<std::vector<vector<double>>> inversion(std::vector<std::vector<double>> A, int N)
   {
-    long double temp;
+    double temp;
 
    std::vector<std::vector<double>> E;
-
     for (int i = 0; i < N; i++)
       E.push_back(std::vector<double>(N,0.0));
 
@@ -90,9 +105,11 @@ private:
     for (int k = 0; k < N; k++)
     {
       temp = A[k][k];
-      if( temp  == 0){
-        temp += 0.0000001;
+
+      if(temp == 0 ){
+        return std::nullopt;
       }
+
       for (int j = 0; j < N; j++)
       {
         A[k][j] /= temp;
@@ -102,6 +119,7 @@ private:
       for (int i = k + 1; i < N; i++)
       {
         temp = A[i][k];
+
         for (int j = 0; j < N; j++)
         {
           A[i][j] -= A[k][j] * temp;
@@ -115,6 +133,7 @@ private:
       for (int i = k - 1; i >= 0; i--)
       {
         temp = A[i][k];
+
         for (int j = 0; j < N; j++)
         {
           A[i][j] -= A[k][j] * temp;
@@ -128,6 +147,7 @@ private:
         A[i][j] = E[i][j];
 
     E.clear();
+    return std::optional(A);
   }
 
   [[nodicard]] double NormaV(std::vector<double> V, int n) {

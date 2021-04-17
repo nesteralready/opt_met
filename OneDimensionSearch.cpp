@@ -21,6 +21,7 @@ class OneDimensionSearch {
 public:
   double eps = 1e-7;
   double delta = double( eps / 2.0);
+
   [[nodiscard]] std::tuple<double, double> get_min_dihotomia_method(double a, double b) const {
     assert(a <= b);
     double lenghtOtrezok;

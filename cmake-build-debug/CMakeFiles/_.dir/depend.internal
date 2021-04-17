@@ -7,7 +7,9 @@ CMakeFiles/_.dir/OneDimensionSearch.cpp.o
 CMakeFiles/_.dir/main.cpp.o
  /Users/nester/Desktop/методы оптимизации/Function.cpp
  /Users/nester/Desktop/методы оптимизации/Gradient.cpp
- /Users/nester/Desktop/методы оптимизации/NewtonMethod.cpp
  /Users/nester/Desktop/методы оптимизации/OneDimensionSearch.cpp
  /Users/nester/Desktop/методы оптимизации/QuadraticTask.cpp
+ /Users/nester/Desktop/методы оптимизации/lab2/MatrixAPI.cpp
+ /Users/nester/Desktop/методы оптимизации/lab2/NewtonMethod.cpp
+ /Users/nester/Desktop/методы оптимизации/lab2/SoprGrad.cpp
  /Users/nester/Desktop/методы оптимизации/main.cpp
