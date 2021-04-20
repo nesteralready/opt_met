@@ -6,24 +6,31 @@
 #include <vector>
 #include <iostream>
 #include <optional>
+
 class NewtonMethod {
 
 public:
-  double eps = 1e-8;
+  double eps = 1e-5;
   int dim = 2;
 
 
   [[nodiscard]] std::vector<double> newton_method(std::vector<double> start_point) {
-    std::cout <<"work"<< std::endl;
+    std::cout <<"NEWTON"<< std::endl;
     std::vector<double> prev_x;
     std::vector<double> cur_x = start_point;
     std::vector<double> grad;
+    int hessCounter = 0;
+    int gradCounter = 0;
+    int iterations = 0;
     double alpha;
     do {
-
+      iterations++;
+      //std::cout << cur_x[0] << " " << cur_x[1] << std::endl;
       prev_x = cur_x;
       grad = gradient(cur_x);
+      gradCounter++;
       std::vector<std::vector<double>> hess = hessian(cur_x);
+      hessCounter++;
       auto hes_inv = inversion(hess,dim);
       std::vector<double> direction;
       if(hes_inv.has_value()){
@@ -46,15 +53,66 @@ public:
       }
     } while (NormaV({cur_x[0] - prev_x[0], cur_x[1]-prev_x[1]},2 ) >= eps);
 
-    for(int i =0; i < dim; i++){
-      std::cout << cur_x[i] << " " << std::endl;
-    }
+    std::cout << "x =" << cur_x[0]  << "    y = " << cur_x[1] << " " << std::endl;
+
+
+    std::cout << "gradientCall = " << hessCounter << std::endl;
+    std::cout << "hessianCall = " << gradCounter << std::endl;
+    std::cout << "num of iter = " << iterations << std::endl;
     std::cout << "f(x,y) = " << f(cur_x[0],cur_x[1])  << std::endl;
-  }
-
-  void run(std::vector<double> x){
+    std::cout << std::endl;
 
   }
+
+  [[nodiscard]] std::vector<double> conjGrad(std::vector<double> start_point) {
+    std::vector<double> prev_x = {INT32_MAX,INT32_MAX};
+    std::vector<double> cur_x = start_point;
+    std::vector<double> grad = gradient(cur_x);
+    std::vector<double> p = gradient(cur_x);
+    std::vector<double>  prev_grad;
+    int iterations = 0;
+    int hessCounter = 0;
+    int gradCounter = 1;
+    double betta = 0;
+    double alpha;
+
+    std::vector<double> ostanovaVector = {std::abs(cur_x[0] - prev_x[0]), std::abs(cur_x[1] - prev_x[1])};
+
+    while(iterations <100 && NormaV(ostanovaVector,2) > eps) {
+      iterations++;
+     // std::cout << cur_x[0] << " " << cur_x[1] << std::endl;
+      prev_x = cur_x;
+      alpha = (golden_sechenie(0, 1, p, cur_x))[0];
+      prev_grad = grad;
+      for (int i = 0; i < dim; i++)
+        cur_x[i] = cur_x[i] - alpha * p[i];
+
+      grad = gradient(cur_x);
+
+      if (iterations % (dim +1)  == 0) {
+        betta = 0.0;
+      }
+      else{
+        //add - (*)
+       betta = Scal(grad, grad, 2) / Scal(prev_grad, prev_grad, 2);
+      }
+
+      for(int i = 0; i < dim; i++) {
+        p[i] = grad[i] - betta * p[i];
+      }
+      ostanovaVector = {std::abs(cur_x[0] - prev_x[0]), std::abs(cur_x[1] - prev_x[1])};
+    }
+
+      std::cout << "x =" << cur_x[0]  << "    y = " << cur_x[1] << " " << std::endl;
+
+
+    std::cout << "hessianCall = " << hessCounter << std::endl;
+    std::cout << "gradCall = " << gradCounter << std::endl;
+    std::cout << "num of iter = " << iterations << std::endl;
+    std::cout << "f(x,y) = " << f(cur_x[0],cur_x[1])  << std::endl;
+    std::cout << std::endl;
+  }
+
 
 
 private:
@@ -215,4 +273,13 @@ private:
     std::vector<double> res = {(a + b) / 2};
     return res;
   }
+
+  double Scal(std::vector<double> v1, std::vector<double> v2, int n) {
+    double s = 0.0;
+    for (int i = 0; i < n; i++) {
+      s = v1[i] * v2[i] + s;
+    }
+    return s;
+  }
+
 };

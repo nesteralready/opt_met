@@ -6,21 +6,7 @@
 #include <math.h>
 using namespace std;
 
-double NormaV(double *V, int n) {
-  double norma;
-  double s = 0;
-  for (int i = 0; i < n; i++)
-    s += V[i] * V[i];
-  norma = sqrt(s);
-  return norma;
-}
-double Scal(double *v1, double *v2, int n) {
-  double s = 0.0;
-  for (int i = 0; i < n; i++) {
-    s = v1[i] * v2[i] + s;
-  }
-  return s;
-}
+
 double *MatrixByVector(double **H, double *V, int n) {
   double *tmp = new double[n];
   double sum = 0;
@@ -33,7 +19,22 @@ double *MatrixByVector(double **H, double *V, int n) {
   return tmp;
 }
 
+[[nodicard]] double NormaV(double *V, int n) {
+  double norma;
+  double s = 0;
+  for (int i = 0; i < n; i++)
+    s += V[i] * V[i];
+  norma = std::sqrt(s);
+  return norma;
+}
 
+double Scal(double *v1, double* v2, int n) {
+  double s = 0.0;
+  for (int i = 0; i < n; i++) {
+    s = v1[i] * v2[i] + s;
+  }
+  return s;
+}
 
 double *SoprGrad(double **Q, double * b, int n) {
   int k = 0;

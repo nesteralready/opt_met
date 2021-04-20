@@ -11,5 +11,6 @@ CMakeFiles/_.dir/main.cpp.o: ../QuadraticTask.cpp
 CMakeFiles/_.dir/main.cpp.o: ../lab2/MatrixAPI.cpp
 CMakeFiles/_.dir/main.cpp.o: ../lab2/NewtonMethod.cpp
 CMakeFiles/_.dir/main.cpp.o: ../lab2/SoprGrad.cpp
+CMakeFiles/_.dir/main.cpp.o: ../lab3/Simplex.cpp
 CMakeFiles/_.dir/main.cpp.o: ../main.cpp
 

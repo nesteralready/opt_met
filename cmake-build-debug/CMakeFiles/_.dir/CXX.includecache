@@ -66,6 +66,12 @@ vector
 math.h
 -
 
+/Users/nester/Desktop/методы оптимизации/lab3/Simplex.cpp
+iostream
+-
+vector
+-
+
 /Users/nester/Desktop/методы оптимизации/main.cpp
 iostream
 -
@@ -81,4 +87,6 @@ lab2/MatrixAPI.cpp
 /Users/nester/Desktop/методы оптимизации/lab2/MatrixAPI.cpp
 lab2/SoprGrad.cpp
 /Users/nester/Desktop/методы оптимизации/lab2/SoprGrad.cpp
+lab3/Simplex.cpp
+/Users/nester/Desktop/методы оптимизации/lab3/Simplex.cpp
 

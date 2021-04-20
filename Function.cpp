@@ -168,5 +168,17 @@ public:
 
     return res;
   }
+
+  long double f9_1(double x, double y) const {
+    return  std::pow(x,2) + std::pow(y,2) -4;
+  }
+  long double derivate_f9_1_x(double x, double y) const {
+    return (f9_1(x+0.00001,y) - f9_1(x,y))/0.00001;
+  }
+  long double derivate_f9_1_y(double x, double y) const {
+    return (f9_1(x,y+0.00001) - f9_1(x,y))/0.00001;
+  }
+
+
 };
 
